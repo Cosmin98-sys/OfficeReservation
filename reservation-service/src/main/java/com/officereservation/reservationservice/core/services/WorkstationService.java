@@ -5,6 +5,8 @@ import com.officereservation.reservationservice.core.dtos.responses.workstation.
 import com.officereservation.reservationservice.dataaccess.workstation.WorkstationRepository;
 import com.officereservation.reservationservice.model.workstation.Workstation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -29,10 +31,9 @@ public class WorkstationService {
         return workstationRepository.save(workstation).getId();
     }
 
-    public List<GetAvailableWorkstationsResponse> getAvailableWorkstations(LocalDate date){
-        return workstationRepository.getAvailableForDate(date).stream()
-                .map(w->new GetAvailableWorkstationsResponse(w.getId(),w.getName(),w.getFloor(),
-                        w.getZone(), w.getType(), w.getCapacity(),w.getDescription()))
-                .toList();
+    public Page<GetAvailableWorkstationsResponse> getAvailableWorkstations(LocalDate date, Pageable pageable) {
+        return workstationRepository.getAvailableForDate(date, pageable)
+                .map(w -> new GetAvailableWorkstationsResponse(w.getId(), w.getName(), w.getFloor(),
+                        w.getZone(), w.getType(), w.getCapacity(), w.getDescription()));
     }
 }

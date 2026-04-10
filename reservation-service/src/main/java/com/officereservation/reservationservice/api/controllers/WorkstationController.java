@@ -5,6 +5,8 @@ import com.officereservation.reservationservice.core.dtos.responses.workstation.
 import com.officereservation.reservationservice.core.services.WorkstationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +30,10 @@ public class WorkstationController {
     }
 
     @GetMapping("/available")
-    public ResponseEntity<List<GetAvailableWorkstationsResponse>> getAvailable(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
-        return ResponseEntity.ok(workstationService.getAvailableWorkstations(date));
+    public ResponseEntity<Page<GetAvailableWorkstationsResponse>> getAvailable(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(workstationService.getAvailableWorkstations(date, PageRequest.of(page, size)));
     }
 }
