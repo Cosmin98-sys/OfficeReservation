@@ -1,8 +1,10 @@
 package com.officereservation.reservationservice.core.services;
 
-import com.officereservation.reservationservice.core.dtos.commands.user.UpdateUserRequest;
+import com.officereservation.reservationservice.core.dtos.requests.user.UpdateUserRequest;
+import com.officereservation.reservationservice.core.dtos.responses.user.GetUserByIdResponse;
 import com.officereservation.reservationservice.dataaccess.user.RoleRepository;
 import com.officereservation.reservationservice.dataaccess.user.UserRepository;
+import com.officereservation.reservationservice.model.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +30,13 @@ public class UserService {
         user.setRoles(roles);
 
         userRepository.save(user);
+    }
+
+    public GetUserByIdResponse getById(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return new GetUserByIdResponse(user.getId(), user.getEmail(), user.getFullName(),
+                user.getRoles().stream().map(r -> r.getName().name()).toList());
     }
 }

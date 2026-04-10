@@ -1,4 +1,4 @@
-package com.officereservation.reservationservice.core.dtos.commands.user;
+package com.officereservation.reservationservice.core.dtos.requests.user;
 
 import com.officereservation.reservationservice.model.user.RoleName;
 import jakarta.validation.constraints.NotBlank;

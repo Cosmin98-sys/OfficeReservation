@@ -1,4 +1,4 @@
-package com.officereservation.reservationservice.core.dtos.commands.reservation;
+package com.officereservation.reservationservice.core.dtos.requests.reservation;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;

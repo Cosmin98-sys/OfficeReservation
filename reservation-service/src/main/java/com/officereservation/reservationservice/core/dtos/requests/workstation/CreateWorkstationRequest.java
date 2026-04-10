@@ -1,4 +1,4 @@
-package com.officereservation.reservationservice.core.dtos.commands.workstation;
+package com.officereservation.reservationservice.core.dtos.requests.workstation;
 
 import com.officereservation.reservationservice.model.workstation.WorkstationType;
 import jakarta.validation.constraints.Min;

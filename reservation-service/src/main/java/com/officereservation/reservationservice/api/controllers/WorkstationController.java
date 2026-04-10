@@ -1,6 +1,6 @@
 package com.officereservation.reservationservice.api.controllers;
 
-import com.officereservation.reservationservice.core.dtos.commands.workstation.CreateWorkstationRequest;
+import com.officereservation.reservationservice.core.dtos.requests.workstation.CreateWorkstationRequest;
 import com.officereservation.reservationservice.core.dtos.responses.workstation.GetAvailableWorkstationsResponse;
 import com.officereservation.reservationservice.core.services.WorkstationService;
 import jakarta.validation.Valid;
@@ -14,7 +14,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/workstations")

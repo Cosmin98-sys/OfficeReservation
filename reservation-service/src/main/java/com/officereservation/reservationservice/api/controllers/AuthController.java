@@ -1,8 +1,8 @@
 package com.officereservation.reservationservice.api.controllers;
 
 import com.officereservation.reservationservice.core.dtos.responses.user.AuthResponse;
-import com.officereservation.reservationservice.core.dtos.commands.user.LoginRequest;
-import com.officereservation.reservationservice.core.dtos.commands.user.RegisterRequest;
+import com.officereservation.reservationservice.core.dtos.requests.user.LoginRequest;
+import com.officereservation.reservationservice.core.dtos.requests.user.RegisterRequest;
 import com.officereservation.reservationservice.core.services.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

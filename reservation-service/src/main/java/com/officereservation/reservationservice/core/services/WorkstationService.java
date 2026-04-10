@@ -1,6 +1,6 @@
 package com.officereservation.reservationservice.core.services;
 
-import com.officereservation.reservationservice.core.dtos.commands.workstation.CreateWorkstationRequest;
+import com.officereservation.reservationservice.core.dtos.requests.workstation.CreateWorkstationRequest;
 import com.officereservation.reservationservice.core.dtos.responses.workstation.GetAvailableWorkstationsResponse;
 import com.officereservation.reservationservice.dataaccess.workstation.WorkstationRepository;
 import com.officereservation.reservationservice.model.workstation.Workstation;
@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor

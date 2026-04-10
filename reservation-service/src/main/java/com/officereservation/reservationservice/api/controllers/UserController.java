@@ -1,6 +1,7 @@
 package com.officereservation.reservationservice.api.controllers;
 
-import com.officereservation.reservationservice.core.dtos.commands.user.UpdateUserRequest;
+import com.officereservation.reservationservice.core.dtos.requests.user.UpdateUserRequest;
+import com.officereservation.reservationservice.core.dtos.responses.user.GetUserByIdResponse;
 import com.officereservation.reservationservice.core.services.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +21,11 @@ public class UserController {
     public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody UpdateUserRequest request) {
         userService.update(id, request);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    public ResponseEntity<GetUserByIdResponse> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.getById(id));
     }
 }
