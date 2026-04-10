@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
-import java.util.List;
 
 public interface WorkstationRepository extends JpaRepository<Workstation, Long> {
     @Query("SELECT w FROM Workstation w WHERE w.isActive = true AND " +
