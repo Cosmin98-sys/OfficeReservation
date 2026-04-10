@@ -1,16 +1,18 @@
 package com.officereservation.reservationservice.api.controllers;
 
 import com.officereservation.reservationservice.core.dtos.commands.workstation.CreateWorkstationRequest;
+import com.officereservation.reservationservice.core.dtos.responses.workstation.GetAvailableWorkstationsResponse;
 import com.officereservation.reservationservice.core.services.WorkstationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/workstations")
@@ -22,6 +24,12 @@ public class WorkstationController {
     @PostMapping
     @PreAuthorize("hasAuthority('ROLE_HR')")
     public ResponseEntity<Long> create(@Valid @RequestBody CreateWorkstationRequest request) {
-        return ResponseEntity.ok(workstationService.create(request));
+        return ResponseEntity.status(HttpStatus.CREATED).body(workstationService.create(request));
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<GetAvailableWorkstationsResponse>> getAvailable(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        return ResponseEntity.ok(workstationService.getAvailableWorkstations(date));
     }
 }

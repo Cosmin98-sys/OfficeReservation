@@ -1,10 +1,14 @@
 package com.officereservation.reservationservice.core.services;
 
 import com.officereservation.reservationservice.core.dtos.commands.workstation.CreateWorkstationRequest;
+import com.officereservation.reservationservice.core.dtos.responses.workstation.GetAvailableWorkstationsResponse;
 import com.officereservation.reservationservice.dataaccess.workstation.WorkstationRepository;
 import com.officereservation.reservationservice.model.workstation.Workstation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +27,12 @@ public class WorkstationService {
                 .build();
 
         return workstationRepository.save(workstation).getId();
+    }
+
+    public List<GetAvailableWorkstationsResponse> getAvailableWorkstations(LocalDate date){
+        return workstationRepository.getAvailableForDate(date).stream()
+                .map(w->new GetAvailableWorkstationsResponse(w.getId(),w.getName(),w.getFloor(),
+                        w.getZone(), w.getType(), w.getCapacity(),w.getDescription()))
+                .toList();
     }
 }
