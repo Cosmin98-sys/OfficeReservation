@@ -1,4 +1,4 @@
-package com.officereservation.reservationservice.model.config;
+package com.officereservation.reservationservice.config;
 
 import com.officereservation.reservationservice.core.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Value;

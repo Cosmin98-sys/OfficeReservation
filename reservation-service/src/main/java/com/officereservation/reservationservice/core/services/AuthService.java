@@ -5,12 +5,11 @@ import com.officereservation.reservationservice.core.dtos.commands.user.LoginReq
 import com.officereservation.reservationservice.core.dtos.commands.user.RegisterRequest;
 import com.officereservation.reservationservice.model.user.RoleName;
 import com.officereservation.reservationservice.model.user.User;
-import com.officereservation.reservationservice.dataaccess.repository.user.RoleRepository;
-import com.officereservation.reservationservice.dataaccess.repository.user.UserRepository;
+import com.officereservation.reservationservice.dataaccess.user.RoleRepository;
+import com.officereservation.reservationservice.dataaccess.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

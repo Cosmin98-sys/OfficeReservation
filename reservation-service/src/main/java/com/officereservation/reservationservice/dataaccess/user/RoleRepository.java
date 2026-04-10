@@ -1,4 +1,4 @@
-package com.officereservation.reservationservice.dataaccess.repository.user;
+package com.officereservation.reservationservice.dataaccess.user;
 
 import com.officereservation.reservationservice.model.user.Role;
 import com.officereservation.reservationservice.model.user.RoleName;

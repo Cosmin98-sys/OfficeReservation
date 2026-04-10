@@ -1,6 +1,6 @@
 package com.officereservation.reservationservice.core.services;
 
-import com.officereservation.reservationservice.dataaccess.repository.user.UserRepository;
+import com.officereservation.reservationservice.dataaccess.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,4 +1,4 @@
-package com.officereservation.reservationservice.dataaccess.repository.user;
+package com.officereservation.reservationservice.dataaccess.user;
 
 import com.officereservation.reservationservice.model.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
