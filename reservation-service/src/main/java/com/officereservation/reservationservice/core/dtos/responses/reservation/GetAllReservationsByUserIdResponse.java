@@ -20,7 +20,7 @@ public class GetAllReservationsByUserIdResponse {
     private LocalDateTime createdAt;
 
     private static final DateTimeFormatter ROMANIAN_FORMAT =
-            DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(new Locale("ro", "RO"));
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(Locale.of("ro", "RO"));
 
     public static String formatDate(LocalDate date) {
         return date.format(ROMANIAN_FORMAT);

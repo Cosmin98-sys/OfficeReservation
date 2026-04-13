@@ -19,7 +19,7 @@ public class GetAllNotificationsByUserIdResponse {
     private String createdAt;
 
     private static final DateTimeFormatter ROMANIAN_FORMAT =
-            DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(new Locale("ro", "RO"));
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG).withLocale(Locale.of("ro", "RO"));
 
     public static String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(ROMANIAN_FORMAT);

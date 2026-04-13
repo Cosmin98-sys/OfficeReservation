@@ -2,6 +2,9 @@ package com.officereservation.reservationservice.core.services;
 
 import com.officereservation.reservationservice.core.dtos.requests.reservation.CreateReservationRequest;
 import com.officereservation.reservationservice.core.dtos.responses.reservation.GetAllReservationsByUserIdResponse;
+import com.officereservation.reservationservice.core.messaging.events.ReservationCancelledEvent;
+import com.officereservation.reservationservice.core.messaging.events.ReservationCreatedEvent;
+import com.officereservation.reservationservice.core.messaging.publishers.ReservationEventPublisher;
 import com.officereservation.reservationservice.dataaccess.reservation.ReservationRepository;
 import com.officereservation.reservationservice.dataaccess.user.UserRepository;
 import com.officereservation.reservationservice.dataaccess.workstation.WorkstationRepository;
@@ -20,6 +23,7 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final WorkstationRepository workstationRepository;
     private final UserRepository userRepository;
+    private final ReservationEventPublisher reservationEventPublisher;
 
     public Long create(Long userId, CreateReservationRequest request) {
 
@@ -47,7 +51,18 @@ public class ReservationService {
                 .date(request.getDate())
                 .build();
 
-        return reservationRepository.save(reservation).getId();
+        Reservation saved = reservationRepository.save(reservation);
+
+        reservationEventPublisher.publishReservationCreated(
+                ReservationCreatedEvent.builder()
+                        .reservationId(saved.getId())
+                        .userId(userId)
+                        .workstationName(workstation.getName())
+                        .date(request.getDate())
+                        .build()
+        );
+
+        return saved.getId();
     }
 
     public List<GetAllReservationsByUserIdResponse> getAllReservationsByUserId(Long userId) {
@@ -67,5 +82,14 @@ public class ReservationService {
 
         reservation.setStatus(ReservationStatus.CANCELLED);
         reservationRepository.save(reservation);
+
+        reservationEventPublisher.publishReservationCancelled(
+                ReservationCancelledEvent.builder()
+                        .reservationId(reservationId)
+                        .userId(userId)
+                        .workstationName(reservation.getWorkstation().getName())
+                        .date(reservation.getDate())
+                        .build()
+        );
     }
 }
