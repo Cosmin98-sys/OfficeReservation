@@ -8,11 +8,7 @@ import com.officereservation.reservationservice.core.messaging.events.Reservatio
 import com.officereservation.reservationservice.dataaccess.outbox.OutboxMessageRepository;
 import com.officereservation.reservationservice.model.outbox.OutboxMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.core.MessagePostProcessor;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
