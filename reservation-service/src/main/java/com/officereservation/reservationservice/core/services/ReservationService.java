@@ -14,6 +14,7 @@ import com.officereservation.reservationservice.model.user.User;
 import com.officereservation.reservationservice.model.workstation.Workstation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,18 +26,19 @@ public class ReservationService {
     private final UserRepository userRepository;
     private final ReservationEventPublisher reservationEventPublisher;
 
+    @Transactional
     public Long create(Long userId, CreateReservationRequest request) {
 
         if (reservationRepository.existsByUserIdAndDateAndStatus(userId, request.getDate(), ReservationStatus.ACTIVE)) {
             throw new IllegalStateException("You already have an active reservation for this day");
         }
 
+        Workstation workstation = workstationRepository.findByIdWithLock(request.getWorkstationId())
+                .orElseThrow(() -> new IllegalArgumentException("Workstation not found"));
+
         long activeCount = reservationRepository.countByWorkstationIdAndDateAndStatus(
                 request.getWorkstationId(), request.getDate(), ReservationStatus.ACTIVE
         );
-
-        Workstation workstation = workstationRepository.findById(request.getWorkstationId())
-                .orElseThrow(() -> new IllegalArgumentException("Workstation not found"));
 
         if (activeCount >= workstation.getCapacity()) {
             throw new IllegalStateException("This workstation is fully booked for this day");
