@@ -74,6 +74,7 @@ public class ReservationService {
                 .toList();
     }
 
+    @Transactional
     public void cancel(Long reservationId, Long userId){
         Reservation reservation = reservationRepository.findByIdAndUserId(reservationId,userId)
                 .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
